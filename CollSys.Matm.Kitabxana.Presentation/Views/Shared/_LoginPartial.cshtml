@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CollSys.Matm.Kitabxana.Presentation.Areas.Identity.Data
+
+@inject SignInManager<UserModel> SignInManager
+@inject UserManager<UserModel> UserManager
+
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+        <li class="btn-group nav-item">
+            <a class="btn btn-dark" asp-action="Index" asp-controller="Home">KİTABXANA</a>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" asp-action="Index" asp-controller="A_nf">A-NF</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="B_nf">B-NF</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="A">A</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="B">B</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="C">C</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="Az">AZ</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="Av_az">AV-AZ</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="Av_rus">AV-RUS</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="Al">AL</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="_05_az">05-AZ</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="_05_rus">05-RUS</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="K_muz">K-MUZ</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="K_nv">K-NV</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="K_fc">K-FC</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="K_tb">K-TB</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="K_aa">K-ƏƏ</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="K_ar">K-ƏR</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="XariciEdebiyyat">XARİCİ ƏDƏBİYYAT</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="DovriMetbuat">DÖVRİ MƏTBUAT</a>
+            </div>
+        </li>
+
+            <li role="separator" class="divider">-</li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity.Name</a>
+            </li>
+            <li class="nav-item">
+                            <a class="nav-link btn btn-link text-light" style="font-size:15px" asp-controller="Parametrler" asp-action="Index">&nbsp;&nbsp;&#9881;&nbsp;&nbsp;</a>
+                        </li>
+                        <li class="nav-item">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" style="font-size:13px" id="logInOut" class="nav-link btn btn-block btn-link text-light">&nbsp;&nbsp;&#10236;&nbsp;&nbsp;</button>
+                            </form>
+                        </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-light" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </li>
+
+
+        }
+    </ul>

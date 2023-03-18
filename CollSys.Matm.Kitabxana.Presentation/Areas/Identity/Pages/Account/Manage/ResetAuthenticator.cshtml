@@ -1,0 +1,26 @@
+﻿@page
+@model ResetAuthenticatorModel
+@{
+    ViewData["Title"] = "TƏSDİQ AÇARINI YENİLƏ";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h2 id="caption" style="margin-top:0">@ViewData["Title"]</h2>
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>
+            Təsdiq açarınızı yeniləsəniz (sıfırlasanız), təsdiq tətbiqiniz yenidən quraşdırılmalıdır.
+        </strong>
+    </p>
+    <p>
+        Bu əməliyyat 2FA funksiyasını, yenidən təsdiqləyənə qədər deaktiv edir.
+        Təsdiq tətbiqinin quraşdırılmasını tamamlamasanız, profilinizə DAXİL olma haqqını qalıcı olaraq itirə bilərsiniz.
+    </p>
+</div>
+<div>
+    <form id="reset-authenticator-form" method="post" class="form-group">
+        <button id="reset-authenticator-button" class="btn btn-danger btn-block" type="submit">TƏSDİQ AÇARINI YENİLƏ</button>
+    </form>
+</div>

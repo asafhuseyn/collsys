@@ -1,0 +1,578 @@
+﻿@model X.PagedList.IPagedList<CollSys.Matm.Kitabxana.Entities.Tables.ExhibitModel>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using System.Web
+@using CollSys.Matm.Kitabxana.BusinessLogic.Managers
+@using CollSys.Matm.Kitabxana.BusinessLogic.Services
+
+<link href="~/lib/PagedList/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "K-NV Index";
+    var pagedList = (IPagedList)ViewBag.PageList;
+
+}
+
+
+
+
+@*Form for searching*@
+@using (Html.BeginForm("Index", "K_nv", FormMethod.Get))
+{
+
+    <section id="searchPanel" class="expandable">
+
+        <h2 id="caption" style="margin-top:55px; margin-left:4%">K-NV AXTARIŞ</h2>
+        <section id="searchInputs" class="expandable">
+            <table class="table table-sm" style=" width:90%; margin-left:2%; margin-right: 2%;">
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label">İnventar No.</label>
+                            <input type="text" maxlength="100" id="searchInputForInventarNo" name="searchInputForInventarNo" value="@ViewBag.CurrentFilterForInventarNo" class="form-control">
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label">Dk No.</label>
+                            <input type="number" min="0" id="searchInputForDkNo" name="searchInputForDkNo" value="@ViewBag.CurrentFilterForDkNo" class="form-control">
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label">Ümumi ad</label>
+                            <input type="text" maxlength="200" id="searchInputForUmumiAd" name="searchInputForUmumiAd" value="@ViewBag.CurrentFilterForUmumiAd" class="form-control">
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label">Yazar</label>
+                            <select id="searchInputForYazarId" name="searchInputForYazarId" class="form-control">
+                                <option value="" selected></option>
+                                @if (ViewBag.Yazarlar != null)
+                                {
+                                    @foreach (var item in ViewBag.Yazarlar)
+                                    {
+                                        <option value="@item.Id">@item.Yazar</option>
+
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                @*<tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label">Mətbəə</label>
+                                <select id="searchInputForMetbeeId" name="searchInputForMetbeeId" class="form-control">
+                                    <option value="" selected></option>
+                                    @if (ViewBag.Metbeeler != null)
+                                    {
+                                        @foreach (var item in ViewBag.Metbeeler)
+                                        {
+                                            <option value="@item.Id">@item.Metbee</option>
+
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </td>
+                    </tr>*@
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label">Dərc olunma tarixi</label>
+                            <input type="text" maxlength="200" id="searchInputForDercOlunmaTarixi" name="searchInputForDercOlunmaTarixi" value="@ViewBag.CurrentFilterForDercOlunmaTarixi" class="form-control">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label">İstehsal yeri</label>
+                            <select id="searchInputForIstehsalYeriId" name="searchInputForIstehsalYeriId" class="form-control">
+                                <option value="" selected></option>
+                                @if (ViewBag.Regions != null)
+                                {
+                                    @foreach (var item in ViewBag.Regions)
+                                    {
+                                        <option value="@item.Id">@item.Region</option>
+
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label">Təhvil Akt No.</label>
+                            <input type="number" min="0" id="searchInputForTehvilAktNo" name="searchInputForTehvilAktNo" value="@ViewBag.CurrentFilterForTehvilAktNo" class="form-control">
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label for="searchInputForTehvilAlinmaTarixi" class="control-label">Təhvil alınma tarixi</label>
+                            <input type="date" value="@ViewBag.CurrentFilterForTehvilAlinmaTarixi" id="searchInputForTehvilAlinmaTarixi" name="searchInputForTehvilAlinmaTarixi" class="form-control">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <table class="table table-sm" style=" width:90%; margin-left:2%; margin-right: 2%">
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <input type="button" onclick="window.location.href='#'" style="width:100%" value="Paneli bağla" class="btn btn-dark" />
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <input type="submit" style="width:100%" value="Axtar" class="btn btn-primary" />
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </section>
+}
+
+
+<h2 id="caption">K-NV EKSPONATLAR</h2>
+
+<section id="listExhibits">
+    @*Table for listing*@
+    <table class="table table-hover table-sm table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    <abbr title="Axtarış panelini aç">
+                        <a style="font-size:medium; margin:0;" class="btn btn-sm" onclick="location.href='#searchPanel'">
+                            <div style="-webkit-transform: rotate(45deg);
+                                                                                                                                                                                                                                                     -moz-transform: rotate(45deg);
+                                                                                                                                                                                                                                                       -o-transform: rotate(45deg);
+                                                                                                                                                                                                                                                          transform: rotate(45deg);">&#9906;</div>
+                        </a>
+                    </abbr>
+                </th>
+                <th>
+                    @Html.ActionLink("İnv. No.", "Index", new
+                    {
+                        sortOrder = ViewBag.SortByInventarNo,
+                        currentFilterForInventarNo = ViewBag.CurrentFilterForInventarNo,
+                        currentFilterForDkNo = ViewBag.CurrentFilterForDkNo,
+                        currentFilterForYazarId = ViewBag.CurrentFilterForYazarId,
+                        //currentFilterForMetbeeId = ViewBag.CurrentFilterForMetbeeId,
+                        currentFilterForDercOlunmaTarixi = ViewBag.CurrentFilterForDercOlunmaTarixi,
+                        currentFilterForIstehsalYeriId = ViewBag.CurrentFilterForIstehsalYeriId,
+                        currentFilterForTehvilAktNo = ViewBag.CurrentFilterForTehvilAktNo,
+                        currentFilterForTehvilAlinmaTarixi = ViewBag.CurrentFilterForTehvilAlinmaTarixi,
+                        currentFilterForUmumiAd = ViewBag.CurrentFilterForUmumiAd
+                    }, new { @class = "btn btn-link" })
+                </th>
+                <th>
+                    @Html.ActionLink("Dk No.", "Index", new
+                    {
+                        sortOrder = ViewBag.SortByDkNo,
+                        currentFilterForInventarNo = ViewBag.CurrentFilterForInventarNo,
+                        currentFilterForDkNo = ViewBag.CurrentFilterForDkNo,
+                        currentFilterForYazarId = ViewBag.CurrentFilterForYazarId,
+                        //currentFilterForMetbeeId = ViewBag.CurrentFilterForMetbeeId,
+                        currentFilterForDercOlunmaTarixi = ViewBag.CurrentFilterForDercOlunmaTarixi,
+                        currentFilterForIstehsalYeriId = ViewBag.CurrentFilterForIstehsalYeriId,
+                        currentFilterForTehvilAktNo = ViewBag.CurrentFilterForTehvilAktNo,
+                        currentFilterForTehvilAlinmaTarixi = ViewBag.CurrentFilterForTehvilAlinmaTarixi,
+                        currentFilterForUmumiAd = ViewBag.CurrentFilterForUmumiAd
+                    }, new { @class = "btn btn-link" })
+                </th>
+                <th>
+                    @Html.ActionLink("ÜMUMİ AD", "Index", new
+                    {
+                        sortOrder = ViewBag.SortByUmumiAd,
+                        currentFilterForInventarNo = ViewBag.CurrentFilterForInventarNo,
+                        currentFilterForDkNo = ViewBag.CurrentFilterForDkNo,
+                        currentFilterForYazarId = ViewBag.CurrentFilterForYazarId,
+                        //currentFilterForMetbeeId = ViewBag.CurrentFilterForMetbeeId,
+                        currentFilterForDercOlunmaTarixi = ViewBag.CurrentFilterForDercOlunmaTarixi,
+                        currentFilterForIstehsalYeriId = ViewBag.CurrentFilterForIstehsalYeriId,
+                        currentFilterForTehvilAktNo = ViewBag.CurrentFilterForTehvilAktNo,
+                        currentFilterForTehvilAlinmaTarixi = ViewBag.CurrentFilterForTehvilAlinmaTarixi,
+                        currentFilterForUmumiAd = ViewBag.CurrentFilterForUmumiAd
+                    }, new { @class = "btn btn-link" })
+                </th>
+                <th>
+                    @Html.ActionLink("YAZAR", "Index", new
+                    {
+                        sortOrder = ViewBag.SortByYazarId,
+                        currentFilterForInventarNo = ViewBag.CurrentFilterForInventarNo,
+                        currentFilterForDkNo = ViewBag.CurrentFilterForDkNo,
+                        currentFilterForYazarId = ViewBag.CurrentFilterForYazarId,
+                        //currentFilterForMetbeeId = ViewBag.CurrentFilterForMetbeeId,
+                        currentFilterForDercOlunmaTarixi = ViewBag.CurrentFilterForDercOlunmaTarixi,
+                        currentFilterForIstehsalYeriId = ViewBag.CurrentFilterForIstehsalYeriId,
+                        currentFilterForTehvilAktNo = ViewBag.CurrentFilterForTehvilAktNo,
+                        currentFilterForTehvilAlinmaTarixi = ViewBag.CurrentFilterForTehvilAlinmaTarixi,
+                        currentFilterForUmumiAd = ViewBag.CurrentFilterForUmumiAd
+                    }, new { @class = "btn btn-link" })
+                </th>
+                @*
+                    <th>
+                        @Html.ActionLink("MƏTBƏƏ", "Index", new
+                        {
+                            sortOrder = ViewBag.SortByMetbeeId,
+                            currentFilterForInventarNo = ViewBag.CurrentFilterForInventarNo,
+                            currentFilterForDkNo = ViewBag.CurrentFilterForDkNo,
+                            currentFilterForYazarId = ViewBag.CurrentFilterForYazarId,
+                            currentFilterForMetbeeId = ViewBag.CurrentFilterForMetbeeId,
+                            currentFilterForDercOlunmaTarixi = ViewBag.CurrentFilterForDercOlunmaTarixi,
+                            currentFilterForIstehsalYeriId = ViewBag.CurrentFilterForIstehsalYeriId,
+                            currentFilterForTehvilAktNo = ViewBag.CurrentFilterForTehvilAktNo,
+                            currentFilterForTehvilAlinmaTarixi = ViewBag.CurrentFilterForTehvilAlinmaTarixi,
+                            currentFilterForUmumiAd = ViewBag.CurrentFilterForUmumiAd
+                        }, new { @class = "btn btn-link" })
+                    </th>
+                *@
+                <th>
+                    @Html.ActionLink("DƏRC OLUNMA TARİXİ", "Index", new
+                    {
+                        sortOrder = ViewBag.SortByDercOlunmaTarixi,
+                        currentFilterForInventarNo = ViewBag.CurrentFilterForInventarNo,
+                        currentFilterForDkNo = ViewBag.CurrentFilterForDkNo,
+                        currentFilterForYazarId = ViewBag.CurrentFilterForYazarId,
+                        //currentFilterForMetbeeId = ViewBag.CurrentFilterForMetbeeId,
+                        currentFilterForDercOlunmaTarixi = ViewBag.CurrentFilterForDercOlunmaTarixi,
+                        currentFilterForIstehsalYeriId = ViewBag.CurrentFilterForIstehsalYeriId,
+                        currentFilterForTehvilAktNo = ViewBag.CurrentFilterForTehvilAktNo,
+                        currentFilterForTehvilAlinmaTarixi = ViewBag.CurrentFilterForTehvilAlinmaTarixi,
+                        currentFilterForUmumiAd = ViewBag.CurrentFilterForUmumiAd
+                    }, new { @class = "btn btn-link" })
+                </th>
+
+                <th>
+                    @Html.ActionLink("İSTEHSAL YERİ", "Index", new
+                    {
+                        sortOrder = ViewBag.SortByIstehsalYeriId,
+                        currentFilterForInventarNo = ViewBag.CurrentFilterForInventarNo,
+                        currentFilterForDkNo = ViewBag.CurrentFilterForDkNo,
+                        currentFilterForYazarId = ViewBag.CurrentFilterForYazarId,
+                        //currentFilterForMetbeeId = ViewBag.CurrentFilterForMetbeeId,
+                        currentFilterForDercOlunmaTarixi = ViewBag.CurrentFilterForDercOlunmaTarixi,
+                        currentFilterForIstehsalYeriId = ViewBag.CurrentFilterForIstehsalYeriId,
+                        currentFilterForTehvilAktNo = ViewBag.CurrentFilterForTehvilAktNo,
+                        currentFilterForTehvilAlinmaTarixi = ViewBag.CurrentFilterForTehvilAlinmaTarixi,
+                        currentFilterForUmumiAd = ViewBag.CurrentFilterForUmumiAd
+                    }, new { @class = "btn btn-link" })
+                </th>
+                <th>
+                    @Html.ActionLink("AKT No.", "Index", new
+                    {
+                        sortOrder = ViewBag.SortByTehvilAktNo,
+                        currentFilterForInventarNo = ViewBag.CurrentFilterForInventarNo,
+                        currentFilterForDkNo = ViewBag.CurrentFilterForDkNo,
+                        currentFilterForYazarId = ViewBag.CurrentFilterForYazarId,
+                        //currentFilterForMetbeeId = ViewBag.CurrentFilterForMetbeeId,
+                        currentFilterForDercOlunmaTarixi = ViewBag.CurrentFilterForDercOlunmaTarixi,
+                        currentFilterForIstehsalYeriId = ViewBag.CurrentFilterForIstehsalYeriId,
+                        currentFilterForTehvilAktNo = ViewBag.CurrentFilterForTehvilAktNo,
+                        currentFilterForTehvilAlinmaTarixi = ViewBag.CurrentFilterForTehvilAlinmaTarixi,
+                        currentFilterForUmumiAd = ViewBag.CurrentFilterForUmumiAd
+                    }, new { @class = "btn btn-link" })
+                </th>
+                <th>
+                    @Html.ActionLink("ALINMA TARİXİ", "Index", new
+                    {
+                        sortOrder = ViewBag.SortByTehvilAlinmaTarixi,
+                        currentFilterForInventarNo = ViewBag.CurrentFilterForInventarNo,
+                        currentFilterForDkNo = ViewBag.CurrentFilterForDkNo,
+                        currentFilterForYazarId = ViewBag.CurrentFilterForYazarId,
+                        //currentFilterForMetbeeId = ViewBag.CurrentFilterForMetbeeId,
+                        currentFilterForDercOlunmaTarixi = ViewBag.CurrentFilterForDercOlunmaTarixi,
+                        currentFilterForIstehsalYeriId = ViewBag.CurrentFilterForIstehsalYeriId,
+                        currentFilterForTehvilAktNo = ViewBag.CurrentFilterForTehvilAktNo,
+                        currentFilterForTehvilAlinmaTarixi = ViewBag.CurrentFilterForTehvilAlinmaTarixi,
+                        currentFilterForUmumiAd = ViewBag.CurrentFilterForUmumiAd
+                    }, new { @class = "btn btn-link" })
+                </th>
+
+                <th>
+                    <p>Foto</p>
+                </th>
+                <th>
+                    <abbr title="Yeni eksponat əlavə et">
+                        <a style="font-size:medium; margin:0;" class="btn btn-sm" onclick="location.href='@Url.Action("Create", "K_nv")'">&#43;</a>
+                    </abbr>
+                </th>
+            </tr>
+        </thead>
+        @if (Model != null)
+        {
+            IRegionService rs = new RegionManager();
+            rs.Instance(true);
+
+            IYazarService ys = new YazarManager();
+            ys.Instance(true);
+
+            //IMetbeeService ms = new MetbeeManager();
+            //ms.Instance(true);
+
+            @foreach (var item in Model)
+            {
+                string inventarNo = null;
+                int? dkNo = 0;
+                string umumiAd = null;
+                string istehsalYeri = null;
+                string yazar = null;
+                //string metbee = null;
+                string dercOlunmaTarixi = null;
+                int? tehvilAktNo = 0;
+                string tehvilAlinmaTarixi = null;
+                string resim = null;
+
+                if (!String.IsNullOrEmpty(item.InventarNo))
+                {
+                    inventarNo = item.InventarNo;
+                }
+                if (item.DkNo != null)
+                {
+                    dkNo = item.DkNo;
+                }
+                if (!String.IsNullOrEmpty(item.UmumiAd))
+                {
+                    umumiAd = item.UmumiAd;
+                }
+                if (item.YazarId != null)
+                {
+                    yazar = ys.Take(c => c.Id == item.YazarId).Yazar;
+                }
+                //if (item.MetbeeId != null)
+                //{
+                //    metbee = ms.Take(c => c.Id == item.MetbeeId).Metbee;
+                //}
+                if (!String.IsNullOrEmpty(item.DercOlunmaTarixi))
+                {
+                    dercOlunmaTarixi = item.DercOlunmaTarixi;
+                }
+                if (item.IstehsalYeriId != null)
+                {
+                    istehsalYeri = rs.Take(c => c.Id == item.IstehsalYeriId).Region;
+                }
+                if (item.TehvilAktNo != null)
+                {
+                    tehvilAktNo = item.TehvilAktNo;
+                }
+                if (!String.IsNullOrEmpty(item.TehvilAlinmaTarixi.ToString()))
+                {
+                    tehvilAlinmaTarixi = item.TehvilAlinmaTarixi.Value.Day.ToString() + "/"
+                        + item.TehvilAlinmaTarixi.Value.Month.ToString() + "/"
+                        + item.TehvilAlinmaTarixi.Value.Year.ToString();
+                }
+                IImageService imageService = new ImageManager();
+                imageService.Instance(true);
+                var image = imageService.TakeFirst(c => c.ExhibitId == item.Id);
+                if (image != null)
+                {
+                    resim = System.IO.Path.Combine(image.Path, image.Folder, image.Name);
+                }
+                <tr>
+                    <td align="center" style="vertical-align: middle; ">
+                        <abbr title="Eksponata aid məlumatların redaktə edilməsi">
+                            @Html.ActionLink(HttpUtility.HtmlDecode("&#9998;"), "Edit", new { id = item.Id }, new { @style = "font-weight:900;" })
+                        </abbr>
+                    </td>
+                    <td style="vertical-align: middle; text-overflow: ellipsis; overflow:hidden;  white-space: nowrap; max-width: 20px;">
+                        <abbr title="@inventarNo">
+                            @Html.DisplayFor(modelItem => item.InventarNo)
+                        </abbr>
+
+                    </td>
+                    <td style="vertical-align: middle; text-overflow: ellipsis; overflow:hidden;  white-space: nowrap; max-width: 20px;">
+                        <abbr title="@dkNo">
+                            @Html.DisplayFor(modelItem => item.DkNo)
+                        </abbr>
+
+                    </td>
+                    <td style="vertical-align: middle; text-overflow: ellipsis; overflow:hidden;  white-space: nowrap; max-width: 20px;">
+                        <abbr title="@umumiAd">
+                            @Html.DisplayFor(modelItem => item.UmumiAd)
+                        </abbr>
+                    </td>
+                    <td style="vertical-align: middle; text-overflow: ellipsis; overflow:hidden;  white-space: nowrap; max-width: 20px;">
+                        <abbr title="@yazar">
+                            @yazar
+                        </abbr>
+
+                    </td>
+                    @*<td style="vertical-align: middle; text-overflow: ellipsis; overflow:hidden;  white-space: nowrap; max-width: 20px;">
+                            <abbr title="@metbee">
+                                @metbee
+                            </abbr>
+
+                        </td>*@
+                    <td style="vertical-align: middle; text-overflow: ellipsis; overflow:hidden;  white-space: nowrap; max-width: 20px;">
+                        <abbr title="@dercOlunmaTarixi">
+                            @Html.DisplayFor(modelItem => item.DercOlunmaTarixi)
+                        </abbr>
+                    </td>
+                    <td style="vertical-align: middle; text-overflow: ellipsis; overflow:hidden;  white-space: nowrap; max-width: 20px;">
+                        <abbr title="@istehsalYeri">
+                            @istehsalYeri
+                        </abbr>
+
+                    </td>
+                    <td style="vertical-align: middle; text-overflow: ellipsis; overflow:hidden;  white-space: nowrap; max-width: 20px;">
+                        <abbr title="@tehvilAktNo">
+                            @Html.DisplayFor(modelItem => item.TehvilAktNo)
+                        </abbr>
+
+                    </td>
+                    <td style="vertical-align: middle; text-overflow: ellipsis; overflow:hidden;  white-space: nowrap; max-width: 20px;">
+                        <abbr title="@tehvilAlinmaTarixi">
+                            @Html.DisplayFor(modelItem => item.TehvilAlinmaTarixi)
+                        </abbr>
+                    </td>
+
+                    <td align="center" style="vertical-align: middle; text-overflow: ellipsis; overflow:hidden;  white-space: nowrap;max-width: 20px;">
+                        <img class="zoom" src="~/@resim" height="33" width="33" style=" border-radius: 100%;" />
+                    </td>
+                    <td align="center" style="vertical-align: middle; ">
+                        <abbr title="Eksponat haqqında daha ətraflı məlumat">
+                            @Html.ActionLink(HttpUtility.HtmlDecode("&#8505;"), "Details", new { id = item.Id }, new { @style = "font-weight:900;" })
+                        </abbr>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</section>
+<div style="margin:0; padding:0; height:10px;text-align:center;">
+    <p>Nəticə: @ViewBag.ToplamSonuc </p>
+</div>
+
+@*Pager*@
+<div style="margin:0; padding:0; height:10px;text-align:right;">
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+                           new
+                           {
+                               page,
+                               sortOrder = ViewBag.CurrentSort,
+                               currentFilterForInventarNo = ViewBag.CurrentFilterForInventarNo,
+                               currentFilterForDkNo = ViewBag.CurrentFilterForDkNo,
+                               currentFilterForYazarId = ViewBag.CurrentFilterForYazarId,
+                               //currentFilterForMetbeeId = ViewBag.CurrentFilterForMetbeeId,
+                               currentFilterForDercOlunmaTarixi = ViewBag.CurrentFilterForDercOlunmaTarixi,
+                               currentFilterForIstehsalYeriId = ViewBag.CurrentFilterForIstehsalYeriId,
+                               currentFilterForTehvilAktNo = ViewBag.CurrentFilterForTehvilAktNo,
+                               currentFilterForTehvilAlinmaTarixi = ViewBag.CurrentFilterForTehvilAlinmaTarixi,
+                               currentFilterForUmumiAd = ViewBag.CurrentFilterForUmumiAd
+                           }))
+
+</div>
+
+
+<style>
+    .zoom {
+        transition: transform .2s; /* Animation */
+        width: 33px;
+        height: 33px;
+        margin: 0 auto;
+    }
+
+        .zoom:hover {
+            transform: scale(4.0); /* (400% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+
+    th {
+        width: 1%;
+        white-space: nowrap;
+    }
+
+    td {
+        width: 1%;
+        white-space: nowrap;
+    }
+
+    #listExhibits {
+        overflow: auto;
+        -ms-overflow-style: none; /* hide scrollbar for IE and old Edge */
+        scrollbar-width: none; /* hide scrollbar for Firefox */
+        margin: 0;
+        padding: 0;
+    }
+
+        #listExhibits::-webkit-scrollbar { /* hide scrollbar for Chrome, Opera, Safari, new Edge */
+            display: none;
+        }
+
+    #searchInputs {
+        height: 60%;
+        overflow: auto;
+        -ms-overflow-style: none; /* hide scrollbar for IE and old Edge */
+        scrollbar-width: none; /* hide scrollbar for Firefox */
+        margin: 0;
+        padding: 0;
+    }
+
+        #searchInputs::-webkit-scrollbar { /* hide scrollbar for Chrome, Opera, Safari, new Edge */
+            display: none;
+        }
+
+    tr {
+        line-height: 10px;
+    }
+
+
+    abbr[title] {
+        border-bottom: none !important;
+        cursor: inherit !important;
+        text-decoration: none !important;
+    }
+
+    #searchPanel {
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        top: 0;
+        height: 94%;
+        width: 80%;
+        max-width: 50%;
+        background-color: white;
+        color: black;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        z-index: 1;
+    }
+
+        #searchPanel:not(:target) {
+            left: -100%;
+            transition: left 1.5s;
+        }
+
+        #searchPanel:target {
+            left: 0;
+            transition: left 1s;
+        }
+</style>
+
+<script>
+    document.getElementById("searchInputForIstehsalYeriId").value = @ViewBag.CurrentFilterForIstehsalYeriId;
+    document.getElementById("searchInputForYazarId").value = @ViewBag.CurrentFilterForYazarId;
+    @* document.getElementById("searchInputForMetbeeId").value = @ViewBag.CurrentFilterForMetbeeId; *@
+</script>

@@ -1,0 +1,414 @@
+﻿@model CollSys.Matm.Kitabxana.Entities.Tables.ExhibitModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2 id="caption">05-AZ EKSPONAT REDAKTƏ ET</h2>
+<hr />
+
+<p class="text-danger" style="text-align:right">
+    @ViewBag.Hata
+</p>
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @{
+        List<string> selectedImagesList = new List<string>();
+
+    }
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.CreationTime)
+    @Html.HiddenFor(model => model.CreatorUser)
+    
+
+        <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="InventarNo" class="control-label"></label>
+                <input asp-for="InventarNo" class="form-control" required style="z-index:0" />
+                <span asp-validation-for="InventarNo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="DkNo" class="control-label"></label>
+                <input type="number" min="0" asp-for="DkNo" class="form-control" style="z-index:0" />
+                <span asp-validation-for="DkNo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="UmumiAd" class="control-label"></label>
+                <input asp-for="UmumiAd" class="form-control" style="z-index:0" />
+                <span asp-validation-for="UmumiAd" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="ISBN" class="control-label"></label>
+            <input asp-for="ISBN" class="form-control" style="z-index:0" />
+            <span asp-validation-for="ISBN" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="YazarId" class="control-label"></label>
+            @if (ViewBag.Yazarlar != null)
+            {
+                @Html.DropDownListFor(model => model.YazarId, new SelectList(ViewBag.Yazarlar, "Id", "Yazar"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+            }
+            @Html.ValidationMessageFor(model => model.YazarId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="MetbeeId" class="control-label"></label>
+            @if (ViewBag.Metbeeler != null)
+            {
+                @Html.DropDownListFor(model => model.MetbeeId, new SelectList(ViewBag.Metbeeler, "Id", "Metbee"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+            }
+            @Html.ValidationMessageFor(model => model.MetbeeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="DercOlunmaTarixi" class="control-label"></label>
+            <input asp-for="DercOlunmaTarixi" class="form-control" style="z-index:0" />
+            <span asp-validation-for="DercOlunmaTarixi" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">Təhvil Akt No. və Tarixi</label>
+            <div class="input-group">
+                <input type="number" min="0" asp-for="TehvilAktNo" class="form-control" style="z-index:0" />
+                <span asp-validation-for="TehvilAktNo" class="text-danger"></span>
+                <div class="input-group-append">
+                    @{
+                        string dateS = null;
+    
+                        if (Model.TehvilAlinmaTarixi.HasValue)
+                        {
+    
+                            string yearS = Model.TehvilAlinmaTarixi.Value.Year.ToString();
+                            string monthS = Model.TehvilAlinmaTarixi.Value.Month.ToString();
+                            string dayS = Model.TehvilAlinmaTarixi.Value.Day.ToString();
+    
+                            int monthI = Convert.ToInt32(monthS);
+                            int dayI = Convert.ToInt32(dayS);
+    
+                            if (monthI < 10)
+                            {
+                                monthS = "0" + monthS;
+                            }
+                            if (dayI < 10)
+                            {
+                                dayS = "0" + dayS;
+    
+                            }
+                            dateS = yearS + "-" + monthS + "-" + dayS;
+                        }
+                    }
+                    <input name="tehvilAlinmaTarixi" type="date" value="@dateS" class="form-control datepicker" style="z-index:0" />
+                    <span asp-validation-for="TehvilAlinmaTarixi" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Qiymet" class="control-label"></label>
+                <div class="input-group">
+                    <input type="number" step="0.01" min="0" asp-for="Qiymet" class="form-control" style="z-index:0" />
+                    <span asp-validation-for="Qiymet" class="text-danger"></span>
+                    <div class="input-group-append">
+                        @if (ViewBag.Currencies != null)
+                        {
+                            @Html.DropDownListFor(model => model.CurrencyId, new SelectList(ViewBag.Currencies, "Id", "Currency"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                        }
+                        @Html.ValidationMessageFor(model => model.CurrencyId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Miqdar" class="control-label"></label>
+                <input type="number" min="0" asp-for="Miqdar" class="form-control"  style="z-index:0"/>
+                <span asp-validation-for="Miqdar" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SehifeSayi" class="control-label"></label>
+                <input type="number" min="0" asp-for="SehifeSayi" class="form-control"  style="z-index:0"/>
+                <span asp-validation-for="SehifeSayi" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Menbe" class="control-label"></label>
+                <input asp-for="Menbe" class="form-control" style="z-index:0" />
+                <span asp-validation-for="Menbe" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SaxlanmaYeri" class="control-label"></label>
+                <input asp-for="SaxlanmaYeri" class="form-control" style="z-index:0" />
+                <span asp-validation-for="SaxlanmaYeri" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SaxlanmaVeziyyetiId" class="control-label"></label>
+                @if (ViewBag.SaxlanmaVeziyyetleri != null)
+                {
+                    @Html.DropDownListFor(model => model.SaxlanmaVeziyyetiId, new SelectList(ViewBag.SaxlanmaVeziyyetleri, "Id", "SaxlanmaVeziyyeti"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                }
+                @Html.ValidationMessageFor(model => model.SaxlanmaVeziyyetiId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="En" class="control-label"></label>
+                <div class="input-group">
+                    <input type="number" step="0.01" min="0" asp-for="En" class="form-control" style="z-index:0"/>
+                    <span asp-validation-for="En" class="text-danger"></span>
+                    <div class="input-group-append">
+                        @if (ViewBag.MeasurementUnits != null)
+                        {
+                            @Html.DropDownListFor(model => model.EnUnitId, new SelectList(ViewBag.MeasurementUnits, "Id", "MeasurementUnit"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                        }
+                        @Html.ValidationMessageFor(model => model.EnUnitId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Uzunluq" class="control-label"></label>
+                <div class="input-group">
+                    <input type="number" step="0.01" min="0" asp-for="Uzunluq" class="form-control" style="z-index:0"/>
+                    <span asp-validation-for="Uzunluq" class="text-danger"></span>
+                    <div class="input-group-append">
+                        @if (ViewBag.MeasurementUnits != null)
+                        {
+                            @Html.DropDownListFor(model => model.UzunluqUnitId, new SelectList(ViewBag.MeasurementUnits, "Id", "MeasurementUnit"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                        }
+                        @Html.ValidationMessageFor(model => model.UzunluqUnitId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Hundurluk" class="control-label"></label>
+                <div class="input-group">
+                    <input type="number" step="0.01" min="0" asp-for="Hundurluk" class="form-control" style="z-index:0" />
+                    <span asp-validation-for="Hundurluk" class="text-danger"></span>
+                    <div class="input-group-append">
+                        @if (ViewBag.MeasurementUnits != null)
+                        {
+                            @Html.DropDownListFor(model => model.HundurlukUnitId, new SelectList(ViewBag.MeasurementUnits, "Id", "MeasurementUnit"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                        }
+                        @Html.ValidationMessageFor(model => model.HundurlukUnitId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Diametr" class="control-label"></label>
+                <div class="input-group">
+                    <input type="number" step="0.01" min="0" asp-for="Diametr" class="form-control" style="z-index:0"/>
+                    <span asp-validation-for="Diametr" class="text-danger"></span>
+                    <div class="input-group-append">
+                        @if (ViewBag.MeasurementUnits != null)
+                        {
+                            @Html.DropDownListFor(model => model.DiametrUnitId, new SelectList(ViewBag.MeasurementUnits, "Id", "MeasurementUnit"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                        }
+                        @Html.ValidationMessageFor(model => model.DiametrUnitId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="MaterialId" class="control-label"></label>
+                @if (ViewBag.Materials != null)
+                {
+                    @Html.DropDownListFor(model => model.MaterialId, new SelectList(ViewBag.Materials, "Id", "Material"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                }
+                @Html.ValidationMessageFor(model => model.MaterialId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="IstehsalYeriId" class="control-label"></label>
+                @if (ViewBag.Regions != null)
+                {
+                    @Html.DropDownListFor(model => model.IstehsalYeriId, new SelectList(ViewBag.Regions, "Id", "Region"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                }
+                @Html.ValidationMessageFor(model => model.IstehsalYeriId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Images, htmlAttributes: new { @class = "control-label", Style = " font-weight: lighter" })
+                @Html.TextBox("files", "seç", htmlAttributes: new { @class = "btn btn-default btn-block", @style = "background-color:whitesmoke; z-index:0", @type = "file", @multiple = "multiple", @accept = ".jpg, .jpeg, .png,", @id = "imgs" })
+                @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Tesvir" class="control-label"></label>
+                <textarea asp-for="Tesvir" class="form-control" style="z-index:0"></textarea>
+                <span asp-validation-for="Tesvir" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    @{
+        int i = 0;
+        int j = 100000;
+    }
+
+    @foreach (var item in ViewBag.Images)
+    {
+        j++;
+        <input type="checkbox" name="selectedImages[]" id="@j" value="@item" hidden />
+
+    }
+    @{
+        int kayitli = j - 100000;
+    }
+
+    <input type="text" id="kayitliResimSayisi" value="@kayitli" hidden />
+    <div class="row">
+
+        @foreach (var item in ViewBag.Images)
+        {
+
+            i++;
+
+            int checkboxId = i + 100000; // difference between i and j is 100000
+
+            int sil = i + 1000000;
+            int berpaEt = i + 3000000;
+
+
+            <div class="col-md-2">
+                <a href="~/Images/@item" target="_blank">
+                    <img id="@i" src="~/Images/@item" height="100" style="border-radius: 10%; z-index:0" />
+                </a>
+                <br />
+                <input id="@sil" value="SİL" type="button" style="color:#000000; z-index:0;" class="btn btn-default" onclick="decrementValue(); check(@checkboxId); deactivateImage(@i); deactivateButton(@sil); activateButton(@berpaEt);" />
+                <input id="@berpaEt" value="GERİ AL" type="button" style="color:#D3D3D3; z-index:0;" class="btn btn-default" onclick="incrementValue(); uncheck(@checkboxId); activateImage(@i); deactivateButton(@berpaEt); activateButton(@sil);" disabled />
+
+            </div>
+        }
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="submit" value="DƏYİŞİKLİKLƏRİ YADDA SAXLA" style="margin-top:30px" class="btn btn-primary btn-block" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('#imgs').change(function () {
+            var limit = 8 - parseInt(document.getElementById('kayitliResimSayisi').value);
+            var files = $(this)[0].files;
+            if (files.length > limit) {
+                alert("Bu eksponat üçün maksimum " + limit + " şəkil seçə bilərsiniz.");
+                $('#imgs').val('');
+                return false;
+            } else {
+                return true;
+            }
+        });
+    });
+
+    $('#editForm').submit(function () {
+        var limit = 8;
+        var numFiles = $("input:file")[0].files.length + parseInt(document.getElementById('kayitliResimSayisi').value);
+        if (numFiles <= limit) {
+            return true;
+        }
+        alert('Eksponata aid ' + limit + ' şəkil limiti var');
+        return false;
+    });
+    function deactivateImage(value) {
+        document.getElementById(value).style.opacity = "0.2";
+        document.getElementById(value).style.filter = 'alpha(opacity=20)';
+    }
+    function activateImage(value) {
+        document.getElementById(value).style.opacity = "1";
+        document.getElementById(value).style.filter = 'alpha(opacity=100)';
+    }
+    function deactivateButton(value) {
+        document.getElementById(value).disabled = true;
+        document.getElementById(value).style.color = '#D3D3D3';
+    }
+    function activateButton(value) {
+        document.getElementById(value).disabled = false;
+        document.getElementById(value).style.color = '#000000';
+    }
+    function check(value) {
+        document.getElementById(value).checked = true;
+    }
+    function uncheck(value) {
+        document.getElementById(value).checked = false;
+    }
+
+    function incrementValue() {
+        var value = parseInt(document.getElementById('kayitliResimSayisi').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('kayitliResimSayisi').value = value;
+    }
+
+    function decrementValue() {
+        var value = parseInt(document.getElementById('kayitliResimSayisi').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value--;
+        document.getElementById('kayitliResimSayisi').value = value;
+    }
+
+</script>

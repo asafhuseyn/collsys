@@ -1,0 +1,288 @@
+﻿@model CollSys.Matm.Kitabxana.Entities.Tables.ExhibitModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2 id="caption">AV-RUS EKSPONAT ƏTRAFLI MƏLUMAT</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Format)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Format)
+        </dd>
+
+    @if (Model.InventarNo != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.InventarNo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.InventarNo)
+            </dd>
+        }
+
+        @if (Model.DkNo != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DkNo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DkNo)
+            </dd>
+        }
+
+        @if (Model.TehvilAktNo != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TehvilAktNo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TehvilAktNo)
+            </dd>
+        }
+
+        @if (Model.TehvilAlinmaTarixi != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TehvilAlinmaTarixi)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TehvilAlinmaTarixi)
+            </dd>
+        }
+
+        @if (Model.UmumiAd != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UmumiAd)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UmumiAd)
+            </dd>
+        }
+    
+     @if (Model.ISBN != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ISBN)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ISBN)
+                </dd>
+            }
+
+    @if (Model.DercOlunmaTarixi != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.DercOlunmaTarixi)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.DercOlunmaTarixi)
+                </dd>
+            }
+    
+    @if (Model.YazarId != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.YazarId)
+                </dt>
+                <dd class="col-sm-10">
+                    @ViewBag.Yazar
+                </dd>
+            }
+    @if (Model.MetbeeId != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MetbeeId)
+                </dt>
+                <dd class="col-sm-10">
+                    @ViewBag.Metbee
+                </dd>
+            }
+   
+
+    @if (Model.Currency != null || Model.CurrencyId != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Qiymet)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Qiymet) @ViewBag.Currency
+            </dd>
+        }
+
+        @if (Model.Miqdar != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Miqdar)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Miqdar)
+            </dd>
+        }
+    
+    @if (Model.SehifeSayi != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SehifeSayi)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SehifeSayi)
+                </dd>
+            }
+
+    @if (Model.Menbe != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Menbe)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Menbe)
+            </dd>
+        }
+
+        @if (Model.SaxlanmaYeri != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SaxlanmaYeri)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SaxlanmaYeri)
+            </dd>
+        }
+
+        @if (Model.En != null || Model.EnUnitId != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.En)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.En) @ViewBag.EnUnit
+            </dd>
+        }
+
+        @if (Model.Uzunluq != null || Model.UzunluqUnitId != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Uzunluq)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Uzunluq) @ViewBag.UzunluqUnit
+            </dd>
+        }
+
+        @if (Model.Hundurluk != null || Model.HundurlukUnitId != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Hundurluk)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Hundurluk) @ViewBag.HundurlukUnit
+            </dd>
+        }
+
+        @if (Model.Diametr != null || Model.DiametrUnitId != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DiametrUnitId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Diametr) @ViewBag.DiametrUnit
+            </dd>
+        }
+
+        @if (Model.MaterialId != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MaterialId)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.Material
+            </dd>
+        }
+
+        @if (Model.SaxlanmaVeziyyetiId != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SaxlanmaVeziyyetiId)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.SaxlanmaVeziyyeti
+            </dd>
+        }
+
+        @if (Model.IstehsalYeriId != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IstehsalYeriId)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.IstehsalYeri
+            </dd>
+        }
+
+
+        @if (Model.Tesvir != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Tesvir)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Tesvir)
+            </dd>
+        }
+
+        @if (ViewBag.Images != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Images)
+            </dt>
+            <dd class="col-sm-10">
+                @foreach (var item in ViewBag.Images)
+                {
+                    <img src="~/Images/@item" height="100" style=" border-radius: 10%; padding:3px" />
+                }
+            </dd>
+        }
+
+
+    </dl>
+</div>
+
+<div class="row non-printable">
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.ActionLink("Redaktə et", "Edit", new { id = Model.Id }, new { @class = "btn btn-light btn-block" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <button onclick="capEt()" , class="btn btn-light btn-block">Çap et</button>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.ActionLink("SİL", "Delete", "Av_rus", new { id = Model.Id }, new { @class = "btn btn-danger btn-block" })
+        </div>
+    </div>
+</div>
+
+<style>
+    @@media print {
+        .non-printable {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+
+    function capEt() {
+        window.print();
+    }
+
+</script>

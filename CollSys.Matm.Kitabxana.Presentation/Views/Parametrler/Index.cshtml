@@ -1,0 +1,268 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container" style="margin-top:70px; font-size:20px" >
+    <ul class="nav nav-tabs col-lg-12" >
+        <li class="nav-item active"><a class="nav-link" href="#proqramParametr" data-toggle="tab">Proqram Parametrləri</a></li>
+        <li class="nav-item"><a class="nav-link" href="#proqramHaqqinda" data-toggle="tab">Proqram Haqqında</a></li>
+    </ul>
+    <div class="tab-content col-md-12">
+        <div class="tab-pane active" id="proqramParametr">
+            <div id="parametrler">
+                <h2 id="caption" style="margin-top:10px">PROQRAM PARAMETRLƏRİ - KATEQORİYALAR</h2>
+                <p style="color:red; text-align:right;">@ViewBag.MsgProqram</p>
+
+                @using (Html.BeginForm("MeasurementUnit", "Parametrler", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Ölçü vahidi</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("selectedValue", new SelectList(ViewBag.MeasurementUnits, "Id", "MeasurementUnit"), "--", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="writtenValue" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="submit" id="btnDelete" name="submitType" class="btn btn-light btn-block" value="Sil" style="color:red" onclick="return confirm('Silmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnUpdate" name="submitType" class="btn btn-light btn-block" value="Dəyişdir" onclick="return confirm('Dəyiklik etmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnAdd" name="submitType" class="btn btn-light btn-block" value="Əlavə et" />
+                        </div>
+                    </div>
+                }
+                <hr />
+
+                @using (Html.BeginForm("Currency", "Parametrler", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Məzənnə</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("selectedValue", new SelectList(ViewBag.Currencies, "Id", "Currency"), "--", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="writtenValue" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="submit" id="btnDelete" name="submitType" class="btn btn-light btn-block" value="Sil"  style="color:red" onclick="return confirm('Silmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnUpdate" name="submitType" class="btn btn-light btn-block" value="Dəyişdir" onclick="return confirm('Dəyiklik etmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnAdd" name="submitType" class="btn btn-light btn-block" value="Əlavə et" />
+                        </div>
+                    </div>
+                }
+                <hr />
+
+                @using (Html.BeginForm("Material", "Parametrler", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Material</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("selectedValue", new SelectList(ViewBag.Materials, "Id", "Material"), "--", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="writtenValue" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="submit" id="btnDelete" name="submitType" class="btn btn-light btn-block" value="Sil" style="color:red" onclick="return confirm('Silmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnUpdate" name="submitType" class="btn btn-light btn-block" value="Dəyişdir" onclick="return confirm('Dəyiklik etmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnAdd" name="submitType" class="btn btn-light btn-block" value="Əlavə et" />
+                        </div>
+                    </div>
+
+                }
+                <hr />
+
+
+                @using (Html.BeginForm("Yazar", "Parametrler", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Yazar</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("selectedValue", new SelectList(ViewBag.Yazarlar, "Id", "Yazar"), "--", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="writtenValue" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="submit" id="btnDelete" name="submitType" class="btn btn-light btn-block" value="Sil" style="color:red" onclick="return confirm('Silmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnUpdate" name="submitType" class="btn btn-light btn-block" value="Dəyişdir" onclick="return confirm('Dəyiklik etmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnAdd" name="submitType" class="btn btn-light btn-block" value="Əlavə et" />
+                        </div>
+                    </div>
+
+                }
+                <hr />
+
+                
+                @using (Html.BeginForm("Metbee", "Parametrler", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Mətbəə</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("selectedValue", new SelectList(ViewBag.Metbeeler, "Id", "Metbee"), "--", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="writtenValue" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="submit" id="btnDelete" name="submitType" class="btn btn-light btn-block" value="Sil" style="color:red" onclick="return confirm('Silmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnUpdate" name="submitType" class="btn btn-light btn-block" value="Dəyişdir" onclick="return confirm('Dəyiklik etmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnAdd" name="submitType" class="btn btn-light btn-block" value="Əlavə et" />
+                        </div>
+                    </div>
+
+                }
+                <hr />
+
+            
+            @using (Html.BeginForm("Region", "Parametrler", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Region</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("selectedValue", new SelectList(ViewBag.Regions, "Id", "Region"), "--", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="writtenValue" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="submit" id="btnDelete" name="submitType" class="btn btn-block btn-light" value="Sil"  style="color:red" onclick="return confirm('Silmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnUpdate" name="submitType" class="btn btn-block btn-light" value="Dəyişdir" onclick="return confirm('Dəyiklik etmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnAdd" name="submitType" class="btn btn-block btn-light" value="Əlavə et" />
+                        </div>
+                    </div>
+
+                }
+                <hr />
+
+                @using (Html.BeginForm("SaxlanmaVeziyyeti", "Parametrler", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Saxlanma Vəziyyəti</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("selectedValue", new SelectList(ViewBag.SaxlanmaVeziyyetleri, "Id", "SaxlanmaVeziyyeti"), "--", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="writtenValue" class="form-control" style="width:100%" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="submit" id="btnDelete" name="submitType" class="btn btn-light btn-block" value="Sil" style="color:red" onclick="return confirm('Silmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnUpdate" name="submitType" class="btn btn-light btn-block" value="Dəyişdir" onclick="return confirm('Dəyiklik etmək üçün təsdiqləyin.');" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" id="btnAdd" name="submitType" class="btn btn-light btn-block" value="Əlavə et"/>
+                        </div>
+                    </div>
+
+                }
+                <hr />
+            </div>
+        </div>
+
+        <div class="tab-pane" id="proqramHaqqinda">
+            <h2 id="caption" style="margin-top:10px">Proqram haqqında</h2>
+            <p style="font-size:19px; color:darkgray; ">
+                CollSys (Collection Systems) proqramı informasiyanın kolleksiyalaşdırılması, qorunması və əlçatan
+                olması məqsədi ilə <a href="https://metaphora.az">Metaphora LLC</a> tərəfindən hazırlanıb.
+                Proqramın istifadə etdiyiniz versiyası, AMEA Milli Azərbaycan Tarixi Muzeyi üçün xüsusiləşdirilmiş və 2021-ci
+                ildən etibarən istifadəyə verilmişdir. Proqram haqqında şikayət və təkliflərinizi 
+                <a href="mailto:matm@collsys.net?subject=Kitabxana">matm@@collsys.net</a> email ünvanına göndərə bilərsiniz.
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .control-label {
+        font-weight: lighter;
+        font-size: 15px;
+    }
+</style>
+
+<script>
+    window.onload = function () {
+        var tab = window.location.hash.substr(1);
+        var pill = "pill_" + tab;
+
+        if (tab == "") {
+            tab = "profilParametr";
+            pill = "pill_profilParametr";
+        }
+        document.getElementById(tab).classList.add('active');
+        document.getElementById(pill).classList.add('active');
+    };
+
+
+
+    window.addEventListener('keydown', function (e) { if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) { if (e.target.nodeName == 'INPUT' && e.target.type == 'text') { e.preventDefault(); return false; } } }, true);
+
+
+</script>
+

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CollSys.Matm.Kitabxana.DataAccess\Collsys.Matm.Kitabxana.DataAccess.csproj" />
+    <ProjectReference Include="..\CollSys.Matm.Kitabxana.Entities\CollSys.Matm.Kitabxana.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

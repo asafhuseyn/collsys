@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>e43e3838-922c-4e93-b912-6487084e5569</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Matm.Kitabxana.Presentation' " />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.0" />
+    <PackageReference Include="WebDav.Client" Version="2.8.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CollSys.Matm.Kitabxana.BusinessLogic\CollSys.Matm.Kitabxana.BusinessLogic.csproj" />
+    <ProjectReference Include="..\CollSys.Matm.Kitabxana.Entities\CollSys.Matm.Kitabxana.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="CollSys.Matm.Kitabxana.Presentation.db" />
+    <Content Include="CollSys.Matm.Kitabxana.Presentation.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Views\_05_az %28copy 12%29\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Bonistika\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Bonistika\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Bonistika\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Bonistika\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Bonistika\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Faleristika\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Faleristika\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Faleristika\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Faleristika\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Faleristika\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Filateliya\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Filateliya\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Filateliya\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Filateliya\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Filateliya\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Qliptika\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Qliptika\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Qliptika\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Qliptika\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Qliptika\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\SexsiTeltifler\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\SexsiTeltifler\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\SexsiTeltifler\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\SexsiTeltifler\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\SexsiTeltifler\Index.cshtml" />
+  </ItemGroup>
+
+</Project>

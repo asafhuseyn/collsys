@@ -1,0 +1,27 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Profil məlumatları";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<h2 id="caption" style="margin-top:0">@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <p>Profilinizə aid məlumatlar. Bu səhifədən, profil məlumatlarını endirmək və ya profilinizi silmək üçün istifadə edə bilərsiniz. </p>
+        <p>
+            <strong>Profilin silinməsi, profilinizdəki bütün məlumatlarla birlikdə profil hesabınızın qalıcı olaraq silinməsi deməkdir. Silinən məlumatların qurtarılması mümkün deyil.</strong>
+        </p>
+        <form id="download-data" asp-page="DownloadPersonalData" method="post" class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Məlumatları endir</button>
+        </form>
+        <p>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger btn-block">Profili sil</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

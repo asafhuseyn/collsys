@@ -1,0 +1,285 @@
+﻿@model CollSys.Matm.Kitabxana.Entities.Tables.ExhibitModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2 id="caption">K-ƏR EKSPONAT ƏLAVƏ ET</h2>
+<hr />
+<p class="text-danger" style="text-align:right">
+    @ViewBag.Hata
+</p>
+<form asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+       
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="InventarNo" class="control-label"></label>
+                <input asp-for="InventarNo" class="form-control" required style="z-index:0" />
+                <span asp-validation-for="InventarNo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="DkNo" class="control-label"></label>
+                <input type="number" min="0" asp-for="DkNo" class="form-control" style="z-index:0" />
+                <span asp-validation-for="DkNo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="UmumiAd" class="control-label"></label>
+                <input asp-for="UmumiAd" class="form-control" style="z-index:0" />
+                <span asp-validation-for="UmumiAd" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="ISBN" class="control-label"></label>
+            <input asp-for="ISBN" class="form-control" style="z-index:0" />
+            <span asp-validation-for="ISBN" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="YazarId" class="control-label"></label>
+            @if (ViewBag.Yazarlar != null)
+            {
+                @Html.DropDownListFor(model => model.YazarId, new SelectList(ViewBag.Yazarlar, "Id", "Yazar"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+            }
+            @Html.ValidationMessageFor(model => model.YazarId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="MetbeeId" class="control-label"></label>
+            @if (ViewBag.Metbeeler != null)
+            {
+                @Html.DropDownListFor(model => model.MetbeeId, new SelectList(ViewBag.Metbeeler, "Id", "Metbee"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+            }
+            @Html.ValidationMessageFor(model => model.MetbeeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="DercOlunmaTarixi" class="control-label"></label>
+            <input asp-for="DercOlunmaTarixi" class="form-control" style="z-index:0" />
+            <span asp-validation-for="DercOlunmaTarixi" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Təhvil Akt No. və Tarixi</label>
+                <div class="input-group">
+                    <input type="number" min="0" asp-for="TehvilAktNo" class="form-control" style="z-index:0" />
+                    <span asp-validation-for="TehvilAktNo" class="text-danger"></span>
+                    <div class="input-group-append">
+                        <input asp-for="TehvilAlinmaTarixi" class="form-control" style="z-index:0" />
+                        <span asp-validation-for="TehvilAlinmaTarixi" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Qiymet" class="control-label"></label>
+                <div class="input-group">
+                    <input type="number" step="0.01" min="0" asp-for="Qiymet" class="form-control" style="z-index:0" />
+                    <span asp-validation-for="Qiymet" class="text-danger"></span>
+                    <div class="input-group-append">
+                        @if (ViewBag.Currencies != null)
+                        {
+                            @Html.DropDownListFor(model => model.CurrencyId, new SelectList(ViewBag.Currencies, "Id", "Currency"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                        }
+                        @Html.ValidationMessageFor(model => model.CurrencyId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Miqdar" class="control-label"></label>
+                <input type="number" min="0" asp-for="Miqdar" class="form-control"  style="z-index:0"/>
+                <span asp-validation-for="Miqdar" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SehifeSayi" class="control-label"></label>
+                <input type="number" min="0" asp-for="SehifeSayi" class="form-control"  style="z-index:0"/>
+                <span asp-validation-for="SehifeSayi" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Menbe" class="control-label"></label>
+                <input asp-for="Menbe" class="form-control" style="z-index:0" />
+                <span asp-validation-for="Menbe" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SaxlanmaYeri" class="control-label"></label>
+                <input asp-for="SaxlanmaYeri" class="form-control" style="z-index:0" />
+                <span asp-validation-for="SaxlanmaYeri" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SaxlanmaVeziyyetiId" class="control-label"></label>
+                @if (ViewBag.SaxlanmaVeziyyetleri != null)
+                {
+                    @Html.DropDownListFor(model => model.SaxlanmaVeziyyetiId, new SelectList(ViewBag.SaxlanmaVeziyyetleri, "Id", "SaxlanmaVeziyyeti"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                }
+                @Html.ValidationMessageFor(model => model.SaxlanmaVeziyyetiId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="En" class="control-label"></label>
+                <div class="input-group">
+                    <input type="number" step="0.01" min="0" asp-for="En" class="form-control" style="z-index:0"/>
+                    <span asp-validation-for="En" class="text-danger"></span>
+                    <div class="input-group-append">
+                        @if (ViewBag.MeasurementUnits != null)
+                        {
+                            @Html.DropDownListFor(model => model.EnUnitId, new SelectList(ViewBag.MeasurementUnits, "Id", "MeasurementUnit"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                        }
+                        @Html.ValidationMessageFor(model => model.EnUnitId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Uzunluq" class="control-label"></label>
+                <div class="input-group">
+                    <input type="number" step="0.01" min="0" asp-for="Uzunluq" class="form-control" style="z-index:0"/>
+                    <span asp-validation-for="Uzunluq" class="text-danger"></span>
+                    <div class="input-group-append">
+                        @if (ViewBag.MeasurementUnits != null)
+                        {
+                            @Html.DropDownListFor(model => model.UzunluqUnitId, new SelectList(ViewBag.MeasurementUnits, "Id", "MeasurementUnit"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                        }
+                        @Html.ValidationMessageFor(model => model.UzunluqUnitId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Hundurluk" class="control-label"></label>
+                <div class="input-group">
+                    <input type="number" step="0.01" min="0" asp-for="Hundurluk" class="form-control" style="z-index:0" />
+                    <span asp-validation-for="Hundurluk" class="text-danger"></span>
+                    <div class="input-group-append">
+                        @if (ViewBag.MeasurementUnits != null)
+                        {
+                            @Html.DropDownListFor(model => model.HundurlukUnitId, new SelectList(ViewBag.MeasurementUnits, "Id", "MeasurementUnit"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                        }
+                        @Html.ValidationMessageFor(model => model.HundurlukUnitId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Diametr" class="control-label"></label>
+                <div class="input-group">
+                    <input type="number" step="0.01" min="0" asp-for="Diametr" class="form-control" style="z-index:0"/>
+                    <span asp-validation-for="Diametr" class="text-danger"></span>
+                    <div class="input-group-append">
+                        @if (ViewBag.MeasurementUnits != null)
+                        {
+                            @Html.DropDownListFor(model => model.DiametrUnitId, new SelectList(ViewBag.MeasurementUnits, "Id", "MeasurementUnit"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                        }
+                        @Html.ValidationMessageFor(model => model.DiametrUnitId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="MaterialId" class="control-label"></label>
+                @if (ViewBag.Materials != null)
+                {
+                    @Html.DropDownListFor(model => model.MaterialId, new SelectList(ViewBag.Materials, "Id", "Material"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                }
+                @Html.ValidationMessageFor(model => model.MaterialId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="IstehsalYeriId" class="control-label"></label>
+                @if (ViewBag.Regions != null)
+                {
+                    @Html.DropDownListFor(model => model.IstehsalYeriId, new SelectList(ViewBag.Regions, "Id", "Region"), "Seç...", htmlAttributes: new { @class = "form-control", @style = "z-index:0" })
+                }
+                @Html.ValidationMessageFor(model => model.IstehsalYeriId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Images, htmlAttributes: new { @class = "control-label", Style = " font-weight: lighter" })
+                @Html.TextBox("files", "seç", htmlAttributes: new { @class = "btn btn-default btn-block", @style = "background-color:whitesmoke; z - index:0", @type = "file", @multiple = "multiple", @accept = ".jpg, .jpeg, .png,", @id = "images" })
+                @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Tesvir" class="control-label"></label>
+                <textarea asp-for="Tesvir" class="form-control" style = "z-index:0"></textarea>
+                <span asp-validation-for="Tesvir" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="submit" value="Göndər" class="btn btn-primary btn-block" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    var limit = 8;
+    $(document).ready(function () {
+        $('#images').change(function () {
+            var files = $(this)[0].files;
+            if (files.length > limit) {
+                alert("Maksimum " + limit + " şəkil seçə bilərsiniz.");
+                $('#images').val('');
+                return false;
+            } else {
+                return true;
+            }
+        });
+    });
+</script>
