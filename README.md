@@ -93,6 +93,6 @@ After cloning the repository you have to follow these few steps to be ready to u
 3. From terminal change directory to "CollSys.Matm.Kitabxana.DataAccess", then create migration and update database with these commands `dotnet ef migrations add InitialCreate` then `dotnet ef database update` ([more details](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli))
 4. You are ready to use, just last credentials for login `username:` `demo_demo`, `email:` `demo@demo.com` and `password:` `Demo_123`. You can use demo profile to login app or you can use demo account as a reference profile to create new one. **Enjoy :)**
 # License information
-*PLEASE KEEP IN MIND THAT, IT IS GPLv3 LICENSED VERSION. SO YOU CAN USE THESE CODES FOR ANYTHING YOU WANT AS LONG AS YOUR CODES ARE OPEN AND YOU ARE USING SAME LICENSE FOR YOUR CODES TOO.*<br/>
-*IF GPLv3 DOESNT MEET YOUR NEEDS YOU MIGHT THINK ABOUT PROPRIETARY LICENSE AS THE SOFTWARE IS DUAL-LICENSED.*<br/>
-*IF YOU NEED CONSULTING/SUPPORT OR CUSTOMISED VERSION OF THE SOFTWARE THEN [CONTACT ME](mailto:asaf.wolf@icloud.com?subject=github_collsys)*<br/>
+*Please keep in mind that, it is GPLv3 licensed version. So you can use these codes for anything you want as long as your codes are open and you are using same license for your codes too.*<br/>
+*If GPLv3 doesn't meet your needs you might think about proprietary license as the software is dual-licensed.*<br/>
+*If you need consulting/support or customised version of the software then [contact me](mailto:a_huseyn@icloud.com?subject=github_collsys)*<br/>
